@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+# Prepare the environment:
+source ../.packer
+
+# Know the environment:
+ls -asl
+ls -asl /tmp/.packer-build/
+ls -asl /tmp/.packer-build/install/
+
+chmod +x ../install/*
+
+# Jenkins Slave
+if [ "${bootstrap_jenkins_slave}" = true ] ; then
+    echo "INSTALLATION REQESTED: Jenkins Slave ${version_jenkins_slave}"
+    ./jenkins-slave
+else
+    echo "SKIPPED: Jenkins Slave ${version_jenkins_slave}"
+fi
+
+# Ansible
+if [ "${bootstrap_ansible}" = true ] ; then
+    echo "INSTALLATION REQESTED: Ansible ${version_ansible}"
+    ./ansible
+else
+    echo "SKIPPED: Ansible ${version_ansible}"
+fi
+
+# Packer
+if [ "${bootstrap_packer}" = true ] ; then
+    echo "INSTALLATION REQESTED: Packer ${version_packer}"
+    ./packer
+else
+    echo "SKIPPED: Packer ${version_packer}"
+fi
+
+# Terraform
+if [ "${bootstrap_terraform}" = true ] ; then
+    echo "INSTALLATION REQESTED: Terraform ${version_terraform}"
+    ./terraform
+else
+    echo "SKIPPED: Terraform ${version_terraform}"
+fi
+
+# Docker CE
+if [ "${bootstrap_docker_ce}" = true ] ; then
+    echo "INSTALLATION REQESTED: Docker CE ${version_docker_ce}"
+    ./docker-ce
+else
+    echo "SKIPPED: Docker CE ${version_docker_ce}"
+fi
+
+# Kubeadm
+if [ "${bootstrap_kubeadm}" = true ] ; then
+    echo "INSTALLATION REQESTED: kubeadm ${version_kube}"
+    ./kubeadm
+else
+    echo "SKIPPED: kubeadm ${version_kube}"
+fi

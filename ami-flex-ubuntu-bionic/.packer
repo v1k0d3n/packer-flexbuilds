@@ -1,0 +1,34 @@
+# Packer Specifics:
+export PACKER_LOG_PATH="./packer.log"
+export PACKER_LOG=1
+
+# Bootstrap the following applications:
+export bootstrap_ansible=true
+export bootstrap_docker_ce=false
+export bootstrap_jenkins_slave=true
+export bootstrap_kubeadm=false
+export bootstrap_packer=false
+export bootstrap_terraform=false
+
+# Versions:
+export version_ansible="2.3.3.0"
+export version_docker_ce="18.06.2~ce~3-0~ubuntu"
+export version_kube="v1.14.3"
+export version_kube_pkg="1.14.3-00"
+export version_packer="1.4.3"
+export version_terraform="0.12.7"
+
+# Instance Specifics:
+export ssh_username="ubuntu"
+
+# AWS Specifics:
+export aws_access_key=""
+export aws_secret_key=""
+export aws_region="us-east-1"
+export aws_ami_name="ami-ubuntu-flex-bionic"
+export aws_vpc_id=""
+export aws_vpc_public_sn_id=""
+export aws_vpc_public_sg_id=""
+export aws_source_ami="ami-07d0cf3af28718ef8"
+export aws_instance_type="t3.xlarge"
+export aws_volume_size="30"
