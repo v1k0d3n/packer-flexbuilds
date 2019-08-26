@@ -3,7 +3,7 @@ A collection of Hashicorp Packer images for various Cloud Platforms (mostly rela
 
 ## General
 
-This repository provides a flexible, variable-driven method to produce packer images. For further details, read through the TODO section.
+I created this repository, because every other packer repo that I found contained very specific packer builds. Even some of the more flexible packer builds were specific in what applications are installed at the time of build. I didn't want this limitation. Additionally, I wanted this project to be driven by variables, so that Jenkins or any other human/platform could provide their own methods for simply deploy any combinations of applications into their packer builds. For additional details on project goals, read through the TODO section. As the project matures, I'm sure it will go through quite a lot of changes, and as it does, I'll start to add more formalized structure around how/what gets added to the `install` directory in each of the packer build folders.
 
 ## Notice
 
