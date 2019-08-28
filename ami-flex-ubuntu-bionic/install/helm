@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Fetch the binary from upstream:
+curl -o /tmp/${version_helm}-${flexbuild_type}-${flexbuild_arch}.tar.gz https://get.helm.sh/helm-${version_helm}-${flexbuild_type}-${flexbuild_arch}.tar.gz
+
+# Unpack Helm:
+tar -zxvf /tmp/${version_helm}-${flexbuild_type}-${flexbuild_arch}.tar.gz -C /tmp/
+
+# Move binaries to proper path:
+sudo mv /tmp/${flexbuild_type}-${flexbuild_arch}/helm /usr/local/bin/
+sudo mv /tmp/${flexbuild_type}-${flexbuild_arch}/tiller /usr/local/bin/
+
+# Cleanup:
+rm -rf /tmp/${version_helm}-${flexbuild_type}-${flexbuild_arch}.tar.gz
+rm -rf /tmp/${flexbuild_type}-${flexbuild_arch}

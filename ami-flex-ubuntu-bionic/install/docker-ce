@@ -17,7 +17,7 @@ sudo add-apt-repository \
 
 ## Install Docker CE:
 sudo apt-get update && \
-  sudo apt-get install -y docker-ce="${version_docker}"
+  sudo apt-get install -y docker-ce="${version_docker_ce}"
 
 ## Setup Docker customized daemon (TODO: Make parameterized beyond Kubernetes):
 cat << EOF | sudo tee /etc/docker/daemon.json
@@ -41,6 +41,3 @@ sudo usermod -aG docker ubuntu
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 sudo systemctl enable docker
-
-# Summary:
-docker --version

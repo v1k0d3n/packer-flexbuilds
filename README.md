@@ -31,6 +31,8 @@ Please consider contributing rather than forking for the purpose of "saving" thi
 ## TODO
 
 These are some high-level items that need completed:
+- Add summary for `INSTALLED` or `FAILED` at the end of the packer build
+- Pull `.packer`, `packer-build`, and `packer-clean` into root folder (needs to be flexible)
 - Create Jenkinsfile and start CI testing (jenkins.jinkit.com), along with report-back webhooks
 - Add additional OS/Distro exampls (or turn into flexible model)
 - Allow for the creation of users

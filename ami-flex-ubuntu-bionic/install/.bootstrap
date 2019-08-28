@@ -4,56 +4,110 @@
 source ../.packer
 
 # Know the environment:
-ls -asl
+printf "FLEXBUILD PREPARATION: \n"
+printf "FLEXBUILD COMMAND: 'ls -asl $(pwd)' \n"
+ls -asl $(pwd)
+printf "FLEXBUILD COMMAND: 'ls -asl /tmp/.packer-build/' \n"
 ls -asl /tmp/.packer-build/
+printf "FLEXBUILD COMMAND: 'ls -asl /tmp/.packer-build/install/' \n"
 ls -asl /tmp/.packer-build/install/
 
+printf "FLEXBUILD COMMAND: 'chmod +x ../install/*' \n"
 chmod +x ../install/*
 
 # Jenkins Slave
 if [ "${bootstrap_jenkins_slave}" = true ] ; then
-    echo "INSTALLATION REQESTED: Jenkins Slave ${version_jenkins_slave}"
+    printf "**************************** FLEXBUILD INSTALL: BEGIN ****************************** \n"
+    printf "INSTALLATION REQESTED: Jenkins Slave ${version_jenkins_slave} \n"
     ./jenkins-slave
+    printf "**************************** FLEXBUILD INSTALL: END ******************************** \n"
 else
-    echo "SKIPPED: Jenkins Slave ${version_jenkins_slave}"
+    printf "**************************** FLEXBUILD INSTALL: SKIPPED **************************** \n"
+    printf "SKIPPED: Jenkins Slave ${version_jenkins_slave} \n"
+    printf "**************************** FLEXBUILD INSTALL: SKIPPED **************************** \n"
 fi
 
 # Ansible
 if [ "${bootstrap_ansible}" = true ] ; then
-    echo "INSTALLATION REQESTED: Ansible ${version_ansible}"
+    printf "**************************** FLEXBUILD INSTALL: BEGIN ****************************** \n"
+    printf "INSTALLATION REQESTED: Ansible ${version_ansible}"
     ./ansible
+    # Summary:
+    printf "**************************** FLEXBUILD INSTALL: END ******************************** \n"
+    printf "FLEXBUILD SUMMARY: VERSION INFO \n"
+    ansible --version
 else
-    echo "SKIPPED: Ansible ${version_ansible}"
+    printf "**************************** FLEXBUILD INSTALL: SKIPPED **************************** \n"
+    printf "SKIPPED: Ansible ${version_ansible} \n"
+    printf "**************************** FLEXBUILD INSTALL: SKIPPED **************************** \n"
 fi
 
 # Packer
 if [ "${bootstrap_packer}" = true ] ; then
-    echo "INSTALLATION REQESTED: Packer ${version_packer}"
+    printf "**************************** FLEXBUILD INSTALL: BEGIN ****************************** \n"
+    printf "INSTALLATION REQESTED: Packer ${version_packer}"
     ./packer
+    printf "**************************** FLEXBUILD INSTALL: END ******************************** \n"
+    printf "FLEXBUILD SUMMARY: VERSION INFO \n"
+    packer -version
 else
-    echo "SKIPPED: Packer ${version_packer}"
+    printf "**************************** FLEXBUILD INSTALL: SKIPPED **************************** \n"
+    printf "SKIPPED: Packer ${version_packer} \n"
+    printf "**************************** FLEXBUILD INSTALL: SKIPPED **************************** \n"
 fi
 
 # Terraform
 if [ "${bootstrap_terraform}" = true ] ; then
-    echo "INSTALLATION REQESTED: Terraform ${version_terraform}"
+    printf "**************************** FLEXBUILD INSTALL: BEGIN ****************************** \n"
+    printf "INSTALLATION REQESTED: Terraform ${version_terraform}"
     ./terraform
+    printf "**************************** FLEXBUILD INSTALL: END ******************************** \n"
+    printf "FLEXBUILD SUMMARY: VERSION INFO \n"
+    terraform -version
 else
-    echo "SKIPPED: Terraform ${version_terraform}"
+    printf "**************************** FLEXBUILD INSTALL: SKIPPED **************************** \n"
+    printf "SKIPPED: Terraform ${version_terraform}"
+    printf "**************************** FLEXBUILD INSTALL: SKIPPED **************************** \n"
 fi
 
 # Docker CE
 if [ "${bootstrap_docker_ce}" = true ] ; then
-    echo "INSTALLATION REQESTED: Docker CE ${version_docker_ce}"
+    printf "**************************** FLEXBUILD INSTALL: BEGIN ****************************** \n"
+    printf "INSTALLATION REQESTED: Docker CE ${version_docker_ce}"
     ./docker-ce
+    printf "**************************** FLEXBUILD INSTALL: END ******************************** \n"
+    printf "FLEXBUILD SUMMARY: VERSION INFO \n"
+    docker --version
 else
-    echo "SKIPPED: Docker CE ${version_docker_ce}"
+    printf "**************************** FLEXBUILD INSTALL: SKIPPED **************************** \n"
+    printf "SKIPPED: Docker CE ${version_docker_ce}"
+    printf "**************************** FLEXBUILD INSTALL: SKIPPED **************************** \n"
 fi
 
 # Kubeadm
 if [ "${bootstrap_kubeadm}" = true ] ; then
-    echo "INSTALLATION REQESTED: kubeadm ${version_kube}"
+    printf "**************************** FLEXBUILD INSTALL: BEGIN ****************************** \n"
+    printf "INSTALLATION REQESTED: kubeadm ${version_kube}"
     ./kubeadm
+    printf "**************************** FLEXBUILD INSTALL: END ******************************** \n"
+    printf "FLEXBUILD SUMMARY: VERSION INFO \n"
+    kubeadm version -o yaml
 else
-    echo "SKIPPED: kubeadm ${version_kube}"
+    printf "**************************** FLEXBUILD INSTALL: SKIPPED **************************** \n"
+    printf "SKIPPED: kubeadm ${version_kube}"
+    printf "**************************** FLEXBUILD INSTALL: SKIPPED **************************** \n"
+fi
+
+# Helm
+if [ "${bootstrap_helm}" = true ] ; then
+    printf "**************************** FLEXBUILD INSTALL: BEGIN ****************************** \n"
+    printf "INSTALLATION REQESTED: Helm ${version_helm}"
+    ./helm
+    printf "**************************** FLEXBUILD INSTALL: END ******************************** \n"
+    printf "FLEXBUILD SUMMARY: VERSION INFO INFO \n"
+    helm version --client --short
+else
+    printf "**************************** FLEXBUILD INSTALL: SKIPPED **************************** \n"
+    printf "SKIPPED: Helm ${version_helm}"
+    printf "**************************** FLEXBUILD INSTALL: SKIPPED **************************** \n"
 fi
