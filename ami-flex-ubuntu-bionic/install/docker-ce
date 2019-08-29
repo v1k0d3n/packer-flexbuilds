@@ -41,3 +41,33 @@ sudo usermod -aG docker ubuntu
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 sudo systemctl enable docker
+
+
+# Ensure that any custom Docker config.json files exists before pulling images:
+if [ -z "${docker_image_pulls}" ] ||  [ -z "${docker_pull_config}" ]; then
+  echo "FLEXBUILD: No docker config.json file has been configured."
+else
+  echo "FLEXBUILD: Docker config.json provided. Writing to \"${HOME}/.docker/config.json\" "
+    mkdir -p ${HOME}/.docker/;
+    echo ${docker_pull_config} > ~/.docker/config.json;
+fi
+
+# Pull any docker images that have been declared in .packer:
+if [ -z "${docker_image_pulls}" ]; then
+  echo "FLEXBUILD: No Docker images have been declared for pre-pull."
+else
+  echo "FLEXBUILD: Docker images have been declared. Pulling these images now... "
+  for i in ${docker_image_pulls[*]}; do
+    sudo docker pull $i;
+  done
+  echo "FLEXBUILD: Summary of preloaded Docker images \n"
+  sudo docker images
+fi
+
+# If requested, remove any Docker config.json files that may have been provided:
+if [ "${docker_pull_config_purge}" == true ]; then
+  echo "FLEXBUILD: Administrator requested to purge \"${HOME}/.docker/config.json\". Removing... "
+    rm -rf ${HOME}/.docker/config.json
+else
+  echo "FLEXBUILD: Administrator requested to preserve \"${HOME}/.docker/config.json\". Nothing to do."
+fi

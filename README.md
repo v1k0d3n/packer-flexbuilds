@@ -16,7 +16,7 @@ I've decided to change the format for how the packer images in this repo are exe
 If you want to find your image after creation, you can run the following commands:
 ```
 
-# Source the .packer file:
+# Source the .packer environment file:
 source .packer
 
 aws ec2 describe-images --region "${aws_region}" \

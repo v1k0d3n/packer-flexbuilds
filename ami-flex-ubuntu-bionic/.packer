@@ -38,3 +38,21 @@ export aws_vpc_public_sg_id=""
 export aws_source_ami="ami-07d0cf3af28718ef8"
 export aws_instance_type="t3.xlarge"
 export aws_volume_size="30"
+
+## Package Specifics:
+export docker_pull_token=""
+export docker_pull_config=$(cat <<EOF
+{"auths":{"quay.io":{"auth":"$docker_pull_token","email":""}}}
+EOF
+)
+export docker_pull_config_purge="true"
+export docker_image_pulls=(
+docker.elastic.co/elasticsearch/elasticsearch:6.4.3
+docker.elastic.co/kibana/kibana:6.4.3
+quay.io/coreos/configmap-reload:v0.0.1
+quay.io/coreos/prometheus-config-reloader:v0.29.0
+quay.io/coreos/prometheus-operator:v0.29.0
+quay.io/prometheus/alertmanager:v0.16.1
+quay.io/prometheus/prometheus:v2.7.1
+upmcenterprises/elasticsearch-operator:0.2.0
+)
